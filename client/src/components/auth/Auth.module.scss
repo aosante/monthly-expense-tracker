@@ -1,0 +1,46 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeaea;
+}
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paper {
+  padding: 5rem 3rem;
+  text-align: center;
+}
+
+.submit {
+  margin-top: 2rem !important;
+  color: #fff;
+}
+
+.form {
+  width: 100%; // Fix IE 11 issue.
+}
+
+.buttonprogress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -12;
+  margin-left: -12;
+}
+
+.formLink {
+  text-decoration: none;
+  color: #07b1a8;
+  transition: transform 0.2s;
+  display: inline-block;
+  &:hover {
+    transform: scale(1.05);
+  }
+}

@@ -1,0 +1,45 @@
+.root,
+.title {
+  flex-grow: 1;
+}
+
+.title {
+  color: #fff;
+  text-decoration: none;
+  border: none;
+}
+
+.toolBar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 230px;
+  @media (max-width: 600px) {
+    width: 200px;
+  }
+}
+
+.option {
+  cursor: pointer;
+  padding: 2px 8px;
+  color: #fff;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.registerOption {
+  cursor: pointer;
+  border: 1.5px solid #fff;
+  padding: 2px 8px 3px;
+  border-radius: 5px;
+  color: #fff;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
