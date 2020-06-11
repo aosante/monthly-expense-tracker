@@ -10,7 +10,7 @@ export const AlertContext = createContext(initialState);
 export const AlertProvider = ({ children }) => {
   const [alerts, dispatch] = useReducer(AlertReducer, initialState);
 
-  const setAlert = (msg, alertType, timeout = 5000) => {
+  const setAlert = (msg, alertType, timeout = 3000) => {
     const id = uuidv4();
     dispatch({
       type: SET_ALERT,

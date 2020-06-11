@@ -18,10 +18,7 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
-  width: 230px;
-  @media (max-width: 600px) {
-    width: 200px;
-  }
+  width: 150px;
 }
 
 .option {

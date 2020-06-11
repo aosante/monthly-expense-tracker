@@ -8,6 +8,9 @@ import {
   AUTH_ERROR,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
 } from '../types';
 
 const intialState = {
@@ -51,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await axios.post('/api/v1/users', body, config);
       await dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-      dispatch(loadUser());
+      loadUser();
       setAlert('Registered successfully!', 'success');
     } catch (error) {
       const errors = error.response.data.errors;
@@ -62,11 +65,43 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // TODO: login function
+  const login = async ({ email, password }) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const body = JSON.stringify({ email, password });
+    try {
+      const res = await axios.post('/api/v1/auth', body, config);
+      await dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+      loadUser();
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => setAlert(error.msg, 'error'));
+      }
+      dispatch({ type: LOGIN_FAIL });
+    }
+  };
+
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+  };
 
   return (
     <AuthContext.Provider
-      value={{ loadUser, registerUser, token, isAuthenticated, loading, user }}
+      value={{
+        loadUser,
+        registerUser,
+        login,
+        logout,
+        token,
+        isAuthenticated,
+        loading,
+        user,
+      }}
     >
       {children}
     </AuthContext.Provider>

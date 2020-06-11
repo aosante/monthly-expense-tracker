@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../context/auth/AuthState';
 import {
   Button,
   Box,
@@ -9,22 +11,18 @@ import {
   Paper,
 } from '@material-ui/core';
 import css from './Auth.module.scss';
-// TODO, add confirm password functionality
+
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
   const [submitting] = useState(false);
+  const { login, isAuthenticated } = useContext(AuthContext);
+  const { register, errors, handleSubmit, reset } = useForm();
 
-  const handleChange = ({ target: { name, value } }) => {
-    setFormData({ ...formData, [name]: value });
+  const onSubmit = async (data) => {
+    await login(data);
+    reset();
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('loggin in', formData);
-  };
+  if (isAuthenticated) return <Redirect to="/tracker" />;
 
   return (
     <div className={css.container}>
@@ -44,7 +42,7 @@ const Login = () => {
             mehotd="POST"
             className={css.form}
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <TextField
               color="primary"
@@ -56,8 +54,15 @@ const Login = () => {
               label="Email Address"
               autoComplete="email"
               autoFocus
-              defaultValue={formData.email}
-              onChange={(e) => handleChange(e)}
+              error={errors.email ? true : false}
+              inputRef={register({
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: 'Invalid email address',
+                },
+              })}
+              helperText={errors.email && 'Please provide a valid email'}
             />
             <TextField
               color="primary"
@@ -68,9 +73,16 @@ const Login = () => {
               name="password"
               label="Password"
               autoComplete="password"
-              defaultValue={formData.email}
-              onChange={(e) => handleChange(e)}
               type="password"
+              error={errors.password ? true : false}
+              inputRef={register({
+                required: 'You must specify a password',
+                minLength: {
+                  value: 8,
+                  message: 'Password must have at least 8 characters',
+                },
+              })}
+              helperText={errors.password && 'Please provide a valid password'}
             />
             <Box mb={6}>
               <Button

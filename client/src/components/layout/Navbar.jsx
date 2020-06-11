@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AuthContext } from '../../context/auth/AuthState';
 import css from './Navbar.module.scss';
 
 const Navbar = () => {
-  useEffect(() => {
-    console.log('call loadUser from authcontext');
-  }, []);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
     <div className={css.root}>
@@ -18,17 +17,20 @@ const Navbar = () => {
             </Typography>
           </Link>
           <div className={css.options}>
-            {/* options need to be conditinal based on user auth */}
-            <Link to="/">
-              <span className={css.option}>Login</span>
-            </Link>
-            <Link to="/tracker">
-              <span className={css.option}>Tracker</span>
-            </Link>
-            <Link to="/register">
-              <span className={css.registerOption}>SignUp</span>
-            </Link>
-            {/* <span className={css.option}>Logout</span> */}
+            {!isAuthenticated ? (
+              <>
+                <Link to="/">
+                  <span className={css.option}>Login</span>
+                </Link>
+                <Link to="/register">
+                  <span className={css.registerOption}>SignUp</span>
+                </Link>
+              </>
+            ) : (
+              <span onClick={logout} className={css.option}>
+                Logout
+              </span>
+            )}
           </div>
         </Toolbar>
       </AppBar>
