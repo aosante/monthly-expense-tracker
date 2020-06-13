@@ -6,6 +6,7 @@ import Register from './components/auth/Register';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Alert from './components/layout/Alert';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 import { AuthContext } from './context/auth/AuthState';
 import { TrackerProvider } from './context/tracker/TrackerState';
@@ -29,7 +30,11 @@ const App = () => {
         <Route exact path="/" component={Login} />
         <Switch>
           <Route exact path="/register" component={Register} />
-          <Route exact path="/tracker" component={ExpenseTracker} />
+          <PrivateRoute
+            exact
+            path="/tracker"
+            component={ExpenseTracker}
+          ></PrivateRoute>
         </Switch>
         <Footer />
       </TrackerProvider>
