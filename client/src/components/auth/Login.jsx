@@ -6,11 +6,11 @@ import {
   Button,
   Box,
   CircularProgress,
-  Typography,
   TextField,
   Paper,
 } from '@material-ui/core';
 import css from './Auth.module.scss';
+import logo from '../../img/form-logo.png';
 
 const Login = () => {
   const [submitting] = useState(false);
@@ -34,9 +34,7 @@ const Login = () => {
             justifyContent="center"
             flexDirection="column"
           >
-            <Typography component="h1" variant="h4" gutterBottom>
-              Login
-            </Typography>
+            <img src={logo} alt="Form Logo" className={css.logo} />
           </Box>
           <form
             mehotd="POST"

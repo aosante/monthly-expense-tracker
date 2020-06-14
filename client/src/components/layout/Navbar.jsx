@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AuthContext } from '../../context/auth/AuthState';
+import logo from '../../img/nav-logo.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   toolBar: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  logo: {
+    maxWidth: '60px',
   },
   options: {
     display: 'flex',
@@ -57,14 +61,16 @@ const Navbar = () => {
         <Toolbar className={classes.toolBar}>
           {/* TODO remove className logic after adding landing page */}
           <Link className={isAuthenticated ? classes.disabled : null} to="/">
-            <Typography variant="h6" className={classes.title}>
-              Expense Keeper
-            </Typography>
+            <img
+              src={logo}
+              className={classes.logo}
+              alt="Expense Tracker Logo"
+            />
           </Link>
           <div className={classes.options}>
             {!isAuthenticated ? (
               <>
-                <Link to="/">
+                <Link to="/login">
                   <span className={classes.option}>Login</span>
                 </Link>
                 <Link to="/register">

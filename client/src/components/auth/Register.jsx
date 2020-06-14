@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  Typography,
   Box,
   Paper,
   TextField,
@@ -11,6 +10,7 @@ import {
 import { Link, Redirect } from 'react-router-dom';
 import { AuthContext } from '../../context/auth/AuthState';
 import css from './Auth.module.scss';
+import logo from '../../img/form-logo.png';
 
 const Register = () => {
   const [submitting] = useState(false);
@@ -36,9 +36,7 @@ const Register = () => {
             justifyContent="center"
             flexDirection="column"
           >
-            <Typography component="h1" variant="h4" gutterBottom>
-              Register
-            </Typography>
+            <img src={logo} className={css.logo} alt="Form Logo" />
           </Box>
           <form
             method="POST"

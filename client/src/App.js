@@ -6,6 +6,7 @@ import Register from './components/auth/Register';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Alert from './components/layout/Alert';
+import Landing from './components/layout/Landing';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 import { AuthContext } from './context/auth/AuthState';
@@ -27,7 +28,8 @@ const App = () => {
       <TrackerProvider>
         <Navbar />
         <Alert />
-        <Route exact path="/" component={Login} />
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/login" component={Login} />
         <Switch>
           <Route exact path="/register" component={Register} />
           <PrivateRoute
