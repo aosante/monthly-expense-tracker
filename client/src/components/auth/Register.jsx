@@ -123,7 +123,7 @@ const Register = () => {
               </Button>
             </Box>
           </form>
-          <Link to="/" className={css.formLink}>
+          <Link to="/login" className={css.formLink}>
             Already have an account? Sign In
           </Link>
         </Paper>

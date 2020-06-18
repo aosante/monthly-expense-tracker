@@ -52,10 +52,10 @@ const Landing = () => {
           Keep Your Financial Life On Track
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Get rid of all worries by keeping track of your monthly expenses.
-          You'll be sure to respect that monthly budget!
+          Get rid of all worries by keeping track of your monthly expenses. Be
+          sure to respect that monthly budget!
         </Typography>
-        <Link className={classes.link}>
+        <Link to="/register" className={classes.link}>
           <Button
             mt={2}
             className={classes.button}

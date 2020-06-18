@@ -11,10 +11,6 @@ const TransactionSchema = new Schema({
     type: Number,
     required: [true, 'Please add a positive or negative number'],
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user',

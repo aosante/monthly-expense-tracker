@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
 
+// @desc    load current user
+// @route   GET /api/v1/auth
+// @access  Public
 exports.loadUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
@@ -14,6 +17,9 @@ exports.loadUser = async (req, res) => {
   }
 };
 
+// @desc    login
+// @route   POST /api/v1/auth
+// @access  Public
 exports.login = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
