@@ -29,7 +29,7 @@ const AddTransaction = () => {
           autoFocus
           inputRef={register({ required: true })}
           error={errors.text ? true : false}
-          herlperText={
+          helperText={
             errors.text && 'You must provide the transaction description'
           }
         />
@@ -45,7 +45,7 @@ const AddTransaction = () => {
           autoFocus
           inputRef={register({ required: true })}
           error={errors.amount ? true : false}
-          herlperText={
+          helperText={
             errors.amount && 'You must provide the transaction description'
           }
         />

@@ -15,6 +15,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  amount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = User = mongoose.model('user', UserSchema);

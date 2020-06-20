@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { validationResult } = require('express-validator/check');
+const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
@@ -35,4 +35,14 @@ exports.registerUser = async (req, res) => {
     console.error(error.message);
     res.status(500).send('Server error');
   }
+};
+
+// @desc    Update or add monthly amount (budget or limit)
+// @route   PUT /api/v1/transactions/update-amount
+// @access  Private
+exports.updateAmount = async (req, res) => {
+  // 1. validate with express validator and add auth middleware
+  // 2. check for express validator errors
+  // 3. Update amount
+  // 4. res.json the amount
 };

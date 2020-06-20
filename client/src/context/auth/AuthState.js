@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await axios('/api/v1/auth');
       dispatch({ type: USER_LOADED, payload: res.data });
-      console.log('loading user');
     } catch (error) {
       dispatch({ type: AUTH_ERROR });
     }
