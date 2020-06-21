@@ -60,7 +60,7 @@ const Navbar = () => {
       <AppBar position="static" color="primary">
         <Toolbar className={classes.toolBar}>
           {/* TODO remove className logic after adding landing page */}
-          <Link className={isAuthenticated ? classes.disabled : null} to="/">
+          <Link to="/">
             <img
               src={logo}
               className={classes.logo}

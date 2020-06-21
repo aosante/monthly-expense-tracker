@@ -8,6 +8,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
+
 import { AuthContext } from '../../context/auth/AuthState';
 import css from './Auth.module.scss';
 import logo from '../../img/form-logo.png';
@@ -23,7 +24,6 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     await registerUser(data);
-    // reset form data
     reset();
   };
   return (

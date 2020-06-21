@@ -19,6 +19,10 @@ const UserSchema = new Schema({
     type: Number,
     default: 0,
   },
+  amountChanged: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = User = mongoose.model('user', UserSchema);

@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { registerUser } = require('../controllers/users.controller');
+const {
+  registerUser,
+  updateAmount,
+} = require('../controllers/users.controller');
+const auth = require('../middleware/auth');
 
 router.post(
   '/',
@@ -14,6 +18,13 @@ router.post(
     ).isLength({ min: 6 }),
   ],
   registerUser
+);
+
+router.put(
+  '/update-amount',
+  [check('amount', 'Amount must be greater than zero').isInt({ gt: 0 })],
+  auth,
+  updateAmount
 );
 
 module.exports = router;

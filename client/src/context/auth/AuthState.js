@@ -20,6 +20,12 @@ const intialState = {
   user: null,
 };
 
+const CONFIG = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
 export const AuthContext = createContext(intialState);
 
 export const AuthProvider = ({ children }) => {
@@ -43,15 +49,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async ({ name, email, password }) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     const body = JSON.stringify({ name, email, password });
     try {
-      const res = await axios.post('/api/v1/users', body, config);
+      const res = await axios.post('/api/v1/users', body, CONFIG);
       await dispatch({ type: REGISTER_SUCCESS, payload: res.data });
       loadUser();
       setAlert('Registered successfully!', 'success');
@@ -65,15 +65,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async ({ email, password }) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     const body = JSON.stringify({ email, password });
     try {
-      const res = await axios.post('/api/v1/auth', body, config);
+      const res = await axios.post('/api/v1/auth', body, CONFIG);
       await dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       loadUser();
     } catch (error) {
@@ -89,6 +83,21 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: LOGOUT });
   };
 
+  const updateAmount = async ({ amount }) => {
+    const body = { amount: parseInt(amount) };
+    try {
+      await axios.put('/api/v1/users/update-amount', body, CONFIG);
+      loadUser();
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => setAlert(error.msg, 'error'));
+      }
+    }
+
+    // and call loadUser afterwards
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -96,6 +105,7 @@ export const AuthProvider = ({ children }) => {
         registerUser,
         login,
         logout,
+        updateAmount,
         token,
         isAuthenticated,
         loading,

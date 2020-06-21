@@ -4,13 +4,20 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
 
+const validateValues = (req) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return { errors: errors.array() };
+  }
+};
+
 // @desc    load current user
 // @route   POST /api/v1/users
 // @access  Public
 exports.registerUser = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+  const validation = validateValues(req);
+  if (validation) {
+    return res.status(400).json({ errors: validation.errors });
   }
 
   const { name, email, password } = req.body;
@@ -38,11 +45,22 @@ exports.registerUser = async (req, res) => {
 };
 
 // @desc    Update or add monthly amount (budget or limit)
-// @route   PUT /api/v1/transactions/update-amount
+// @route   PUT /api/v1/users/update-amount
 // @access  Private
 exports.updateAmount = async (req, res) => {
-  // 1. validate with express validator and add auth middleware
-  // 2. check for express validator errors
-  // 3. Update amount
-  // 4. res.json the amount
+  const validation = validateValues(req);
+  if (validation) {
+    return res.status(400).json({ errors: validation.errors });
+  }
+  const { amount } = req.body;
+
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      $set: { amount, amountChanged: true },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
 };

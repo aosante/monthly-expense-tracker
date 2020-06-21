@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import { TrackerContext } from '../../context/tracker/TrackerState';
 import { TextField, Button } from '@material-ui/core';
 
+// TODO: disable form when amountChanged is true
+// amountChanged will be set back to false when the user hits the clear button and all transactions are errased
+
 const AddTransaction = () => {
   const { addTransaction } = useContext(TrackerContext);
   const { register, errors, handleSubmit, reset } = useForm();

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Card } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 import { TrackerContext } from '../../context/tracker/TrackerState';
 import { numberWithCommas } from '../../utils/format';
 
@@ -8,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    backgroundColor: '#fff',
+    backgroundColor: '#f3f2f2',
     padding: theme.spacing(3),
     margin: '20px auto',
     justifyContent: 'space-around',
