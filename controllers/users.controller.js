@@ -61,7 +61,7 @@ exports.updateAmount = async (req, res) => {
 
   try {
     await User.findByIdAndUpdate(req.user.id, {
-      $set: { amount, amountChanged: true },
+      $set: { amount, initialAmount: amount, amountChanged: true },
     });
     return res.status(200).json({ success: true });
   } catch (error) {
@@ -76,7 +76,7 @@ exports.reset = async (req, res) => {
   try {
     // set user.amount to zero and user.amountToChanged back to false
     await User.findByIdAndUpdate(req.user.id, {
-      $set: { amount: 0, amountChanged: false },
+      $set: { amount: 0, initialAmount: 0, amountChanged: false },
     });
     // delete user's transactions
     await Transaction.deleteMany({ user: req.user.id });

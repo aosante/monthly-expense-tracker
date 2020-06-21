@@ -5,9 +5,6 @@ import { TextField, Button, Typography } from '@material-ui/core';
 import { AuthContext } from '../../context/auth/AuthState';
 import { TrackerContext } from '../../context/tracker/TrackerState';
 
-// TODO: disable form when amountChanged is true
-// amountChanged will be set back to false when the user hits the clear button and all transactions are errased
-
 const AddTransaction = () => {
   const { addTransaction } = useContext(TrackerContext);
   const { user, loadUser } = useContext(AuthContext);
@@ -53,7 +50,7 @@ const AddTransaction = () => {
           inputRef={register({ required: true })}
           error={errors.amount ? true : false}
           helperText={
-            errors.amount && 'You must provide the transaction description'
+            errors.amount && "You must provide the transaction's amount"
           }
         />
         {user && !user.amountChanged ? (

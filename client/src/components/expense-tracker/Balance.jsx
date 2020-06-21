@@ -31,11 +31,24 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
+  balanceTitle: {
+    margin: '1em auto',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    '@media(max-width:600px)': {
+      flexDirection: 'column',
+    },
+  },
+  btn: {
+    marginBottom: '1em',
+  },
 }));
 
 const Balance = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { user, updateAmount, reset } = useContext(AuthContext);
+  const { getTransactions } = useContext(TrackerContext);
   const classes = useStyles();
   const { register, errors, handleSubmit } = useForm();
 
@@ -46,7 +59,7 @@ const Balance = () => {
 
   const resetMonth = async () => {
     await reset();
-    // TODO call getTransactions from tracker context after this
+    getTransactions();
   };
 
   const editForm = (
@@ -72,16 +85,23 @@ const Balance = () => {
             'You must enter an amount of at least one to be able to start'
           }
         />
-        <Button type="submit" variant="contained" color="primary">
-          Update
-        </Button>
-        <Button
-          onClick={() => setIsEditing(false)}
-          variant="contained"
-          color="secondary"
-        >
-          Cancel
-        </Button>
+        <div>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.btn}
+          >
+            Update
+          </Button>
+          <Button
+            onClick={() => setIsEditing(false)}
+            variant="contained"
+            color="secondary"
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
     </div>
   );
@@ -119,12 +139,16 @@ const Balance = () => {
       ) : null}
       <ResetButton />
       <Caption />
-      <h4>Your Balance</h4>
-      {isEditing ? (
-        editForm
-      ) : (
-        <h1>${user && numberWithCommas(user.amount.toFixed(2))}</h1>
-      )}
+      <div className={classes.balanceTitle}>
+        <h4>Your Budget</h4>
+        <h1>${user && numberWithCommas(user.initialAmount.toFixed(2))}</h1>
+        <h4>Your Balance</h4>
+        {isEditing ? (
+          editForm
+        ) : (
+          <h1>${user && numberWithCommas(user.amount.toFixed(2))}</h1>
+        )}
+      </div>
     </div>
   );
 };

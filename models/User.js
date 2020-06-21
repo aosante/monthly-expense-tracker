@@ -15,6 +15,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  initialAmount: {
+    type: Number,
+    default: 0,
+  },
   amount: {
     type: Number,
     default: 0,
