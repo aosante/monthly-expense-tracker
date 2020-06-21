@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Transaction = require('../models/Transaction');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -58,6 +59,24 @@ exports.updateAmount = async (req, res) => {
     await User.findByIdAndUpdate(req.user.id, {
       $set: { amount, amountChanged: true },
     });
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+};
+
+// @desc    Resets usr balance to zero and deletes all of the user's transactions
+// @route   PUT /api/v1/users/reset
+// @access  Private
+exports.reset = async (req, res) => {
+  try {
+    // set user.amount to zero and user.amountToChanged back to false
+    await User.findByIdAndUpdate(req.user.id, {
+      $set: { amount: 0, amountChanged: false },
+    });
+    // delete user's transactions
+    // await Transaction.deleteMany({ user: req.user.id });
     res.json({ success: true });
   } catch (error) {
     console.error(error.message);

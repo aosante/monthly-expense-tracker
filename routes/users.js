@@ -4,6 +4,7 @@ const { check } = require('express-validator');
 const {
   registerUser,
   updateAmount,
+  reset,
 } = require('../controllers/users.controller');
 const auth = require('../middleware/auth');
 
@@ -26,5 +27,7 @@ router.put(
   auth,
   updateAmount
 );
+
+router.put('/reset', auth, reset);
 
 module.exports = router;

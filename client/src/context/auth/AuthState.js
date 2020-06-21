@@ -94,8 +94,18 @@ export const AuthProvider = ({ children }) => {
         errors.forEach((error) => setAlert(error.msg, 'error'));
       }
     }
+  };
 
-    // and call loadUser afterwards
+  const reset = async () => {
+    try {
+      await axios.put('/api/v1/users/reset');
+      loadUser();
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => setAlert(error.msg, 'error'));
+      }
+    }
   };
 
   return (
@@ -106,6 +116,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         updateAmount,
+        reset,
         token,
         isAuthenticated,
         loading,

@@ -30,13 +30,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Balance = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const { user, updateAmount } = useContext(AuthContext);
+  const { user, updateAmount, reset } = useContext(AuthContext);
   const classes = useStyles();
   const { register, errors, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     await updateAmount(data);
     setIsEditing(false);
+  };
+
+  const resetMonth = async () => {
+    await reset();
   };
 
   const editForm = (
@@ -83,6 +87,19 @@ const Balance = () => {
       </Typography>
     ) : null;
 
+  const ResetButton = () =>
+    user && user.amountChanged ? (
+      <div className={classes.iconContainer}>
+        <Button
+          onClick={() => resetMonth()}
+          variant="contained"
+          color="secondary"
+        >
+          Reset
+        </Button>
+      </div>
+    ) : null;
+
   return (
     <div className={classes.root}>
       {user && !user.amountChanged && !isEditing ? (
@@ -94,6 +111,7 @@ const Balance = () => {
           />
         </div>
       ) : null}
+      <ResetButton />
       <Caption />
       <h4>Your Balance</h4>
       {isEditing ? (
