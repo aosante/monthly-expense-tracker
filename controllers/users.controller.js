@@ -12,6 +12,11 @@ const validateValues = (req) => {
   }
 };
 
+const throwError = (error, res) => {
+  console.error(error.message);
+  res.status(500).send('Server error');
+};
+
 // @desc    load current user
 // @route   POST /api/v1/users
 // @access  Public
@@ -40,8 +45,7 @@ exports.registerUser = async (req, res) => {
       res.json({ token });
     });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server error');
+    throwError(error, res);
   }
 };
 
@@ -59,10 +63,9 @@ exports.updateAmount = async (req, res) => {
     await User.findByIdAndUpdate(req.user.id, {
       $set: { amount, amountChanged: true },
     });
-    res.json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server error');
+    throwError(error, res);
   }
 };
 
@@ -77,9 +80,8 @@ exports.reset = async (req, res) => {
     });
     // delete user's transactions
     // await Transaction.deleteMany({ user: req.user.id });
-    res.json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server error');
+    throwError(error, res);
   }
 };
