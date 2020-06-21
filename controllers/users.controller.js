@@ -79,7 +79,7 @@ exports.reset = async (req, res) => {
       $set: { amount: 0, amountChanged: false },
     });
     // delete user's transactions
-    // await Transaction.deleteMany({ user: req.user.id });
+    await Transaction.deleteMany({ user: req.user.id });
     return res.status(200).json({ success: true });
   } catch (error) {
     throwError(error, res);

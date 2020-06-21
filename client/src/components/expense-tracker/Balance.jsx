@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { AuthContext } from '../../context/auth/AuthState';
+import { TrackerContext } from '../../context/tracker/TrackerState';
 import { numberWithCommas } from '../../utils/format';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
   iconContainer: {
     textAlign: 'right',
+    '@media(max-width:600px)': {
+      textAlign: 'center',
+      marginBottom: '1em',
+    },
   },
   icon: {
     '&:hover': {
@@ -41,6 +46,7 @@ const Balance = () => {
 
   const resetMonth = async () => {
     await reset();
+    // TODO call getTransactions from tracker context after this
   };
 
   const editForm = (

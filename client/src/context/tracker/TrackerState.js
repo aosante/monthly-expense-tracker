@@ -23,7 +23,7 @@ export const TrackerProvider = ({ children }) => {
   const getTransactions = async () => {
     try {
       const res = await axios('/api/v1/transactions');
-      dispatch({ type: GET_TRANSACTIONS, payload: res.data.data });
+      dispatch({ type: GET_TRANSACTIONS, payload: res.data });
     } catch (error) {
       dispatch({ type: TRANSACTION_ERROR, payload: error.response.data });
     }
@@ -46,7 +46,7 @@ export const TrackerProvider = ({ children }) => {
     };
     try {
       const res = await axios.post('/api/v1/transactions', transaction, config);
-      dispatch({ type: ADD_TRANSACTION, payload: res.data.data });
+      dispatch({ type: ADD_TRANSACTION, payload: res.data });
     } catch (error) {
       dispatch({ type: TRANSACTION_ERROR, payload: error.response.data });
     }

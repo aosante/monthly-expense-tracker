@@ -1,18 +1,21 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { TextField, Button, Typography } from '@material-ui/core';
+
+import { AuthContext } from '../../context/auth/AuthState';
 import { TrackerContext } from '../../context/tracker/TrackerState';
-import { TextField, Button } from '@material-ui/core';
 
 // TODO: disable form when amountChanged is true
 // amountChanged will be set back to false when the user hits the clear button and all transactions are errased
 
 const AddTransaction = () => {
   const { addTransaction } = useContext(TrackerContext);
+  const { user, loadUser } = useContext(AuthContext);
   const { register, errors, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
-    console.log('adding transaction', data);
-    // addTransaction(newTransaction);
+    await addTransaction(data);
+    await loadUser();
     reset();
   };
 
@@ -45,6 +48,7 @@ const AddTransaction = () => {
           name="amount"
           label="Amount"
           autoComplete="text"
+          type="number"
           autoFocus
           inputRef={register({ required: true })}
           error={errors.amount ? true : false}
@@ -52,12 +56,19 @@ const AddTransaction = () => {
             errors.amount && 'You must provide the transaction description'
           }
         />
+        {user && !user.amountChanged ? (
+          <Typography variant="caption" color="primary">
+            You must first enter your monthly budget or limit to be able to add
+            a new transaction
+          </Typography>
+        ) : null}
         <Button
           style={{ marginTop: '40px' }}
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
+          disabled={user && !user.amountChanged}
         >
           Add Transaction
         </Button>
