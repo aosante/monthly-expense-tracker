@@ -41,7 +41,6 @@ exports.addTransaction = async (req, res) => {
 // @route   DELETE /api/v1/transactions/:id
 // @access  Public
 exports.deleteTransaction = async (req, res) => {
-  console.log(req.params.id);
   try {
     const transaction = await Transaction.findById(req.params.id);
 
@@ -49,6 +48,10 @@ exports.deleteTransaction = async (req, res) => {
       return res.status(404).json({ msg: 'No transaction found' });
     }
 
+    const user = await User.findById(transaction.user).select('-password');
+    user.amount = user.amount - transaction.amount;
+
+    await user.save();
     await transaction.remove();
 
     return res.status(200).json({ success: true });

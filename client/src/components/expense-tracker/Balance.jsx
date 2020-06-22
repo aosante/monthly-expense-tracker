@@ -78,7 +78,6 @@ const Balance = () => {
           type="number"
           inputRef={register({ required: true, min: 1 })}
           autoFocus
-          defaultValue={0}
           error={errors.amount ? true : false}
           helperText={
             errors.amount &&

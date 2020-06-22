@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import { TrackerContext } from '../../context/tracker/TrackerState';
+import { AuthContext } from '../../context/auth/AuthState';
 import { numberWithCommas } from '../../utils/format.js';
 
 const TransactionItem = styled.li`
@@ -12,6 +15,11 @@ const TransactionItem = styled.li`
   position: relative;
   padding: 10px;
   margin: 10px 0;
+  .transaction-container {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+  }
   button {
     cursor: pointer;
     background-color: #e74c3c;
@@ -39,19 +47,35 @@ const TransactionItem = styled.li`
   .minus {
     border-right: 5px solid #c0392b;
   }
+  .icon:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
 `;
 
 const Transaction = ({ transaction: { _id, text, amount } }) => {
   const { deleteTransaction } = useContext(TrackerContext);
+  const { loadUser } = useContext(AuthContext);
+
+  const onDelete = async () => {
+    await deleteTransaction(_id);
+    loadUser();
+  };
   return (
     <TransactionItem className={amount > 0 ? 'plus' : 'minus'}>
-      {text}{' '}
-      <span>
-        {amount > 0
-          ? `$${numberWithCommas(amount)}`
-          : `-$${numberWithCommas(Math.abs(amount))}`}
-      </span>
-      <button onClick={() => deleteTransaction(_id)}>x</button>
+      <div className="transaction-container">
+        {text}{' '}
+        <span>
+          {amount > 0
+            ? `$${numberWithCommas(amount)}`
+            : `-$${numberWithCommas(Math.abs(amount))}`}
+        </span>
+      </div>
+      <DeleteIcon
+        className="icon"
+        color="secondary"
+        onClick={() => onDelete()}
+      />
     </TransactionItem>
   );
 };
