@@ -30,6 +30,7 @@ const AddTransaction = () => {
           label="Description"
           autoComplete="text"
           autoFocus
+          disabled={user && !user.amountChanged}
           inputRef={register({ required: true })}
           error={errors.text ? true : false}
           helperText={
@@ -47,6 +48,7 @@ const AddTransaction = () => {
           autoComplete="text"
           type="number"
           autoFocus
+          disabled={user && !user.amountChanged}
           inputRef={register({ required: true })}
           error={errors.amount ? true : false}
           helperText={

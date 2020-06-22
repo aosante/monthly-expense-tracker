@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 import { AuthContext } from '../../context/auth/AuthState';
 import logo from '../../img/nav-logo.png';
 

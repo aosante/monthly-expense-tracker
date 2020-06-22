@@ -1,16 +1,20 @@
 import React, { useContext, useEffect } from 'react';
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Transaction from './Transaction';
 import { TrackerContext } from '../../context/tracker/TrackerState';
 
-const List = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 40px;
-`;
+const useStyles = makeStyles(() => ({
+  list: {
+    listStyleType: 'none',
+    padding: 0,
+    marginBottom: '40px',
+  },
+}));
 
 const TransactionList = () => {
   const { transactions, getTransactions } = useContext(TrackerContext);
+  const classes = useStyles();
 
   useEffect(() => {
     getTransactions();
@@ -20,11 +24,11 @@ const TransactionList = () => {
   return (
     <>
       <h3>History</h3>
-      <List>
+      <ul className={classes.list}>
         {transactions.map((transaction) => (
           <Transaction key={transaction._id} transaction={transaction} />
         ))}
-      </List>
+      </ul>
     </>
   );
 };
