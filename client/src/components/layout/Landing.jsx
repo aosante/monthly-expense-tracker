@@ -7,9 +7,9 @@ import phone from '../../img/hero-phone.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: '80vh',
+    minHeight: '110vh',
     display: 'flex',
-    '@media(max-width:600px)': {
+    '@media(max-width:750px)': {
       flexDirection: 'column',
     },
   },
@@ -19,13 +19,13 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     margin: '2rem',
-    '@media(max-width:600px)': {
+    '@media(max-width:750px)': {
       textAlign: 'center',
     },
   },
   img: {
     maxWidth: '600px',
-    '@media(max-width:600px)': {
+    '@media(max-width:750px)': {
       maxWidth: '400px',
       maxHeight: '300px',
     },
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     maxWidth: '200px',
     marginTop: '1rem',
-    '@media(max-width:600px)': {
+    '@media(max-width:750px)': {
       margin: '1rem auto',
     },
   },

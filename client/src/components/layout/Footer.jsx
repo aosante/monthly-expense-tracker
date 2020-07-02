@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0 2em',
-    '@media(max-width:600px)': {
+    '@media(max-width:750px)': {
       flexDirection: 'column',
       padding: '0.5em 2em',
     },

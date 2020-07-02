@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   iconContainer: {
     textAlign: 'right',
-    '@media(max-width:600px)': {
+    '@media(max-width:750px)': {
       textAlign: 'center',
       marginBottom: '1em',
     },
@@ -36,12 +36,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    '@media(max-width:600px)': {
+    '@media(max-width:750px)': {
       flexDirection: 'column',
     },
   },
   btn: {
     marginBottom: '1em',
+    width: '85%',
   },
 }));
 
@@ -97,6 +98,7 @@ const Balance = () => {
             onClick={() => setIsEditing(false)}
             variant="contained"
             color="secondary"
+            className={classes.btn}
           >
             Cancel
           </Button>
